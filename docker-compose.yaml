@@ -4,6 +4,8 @@ services:
   app: # name of our service
     build:
       context: . # build dockerfile inside current dir
+      args:
+        - DEV=true # we're using this compose file to build a dev image, so set a DEV arg to true
     ports:
       - "8000:8000" # maps point 8000 on our machine to port 8000 inside our docker container
     volumes:
