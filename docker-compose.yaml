@@ -1,0 +1,16 @@
+version: "3.9" # specify version in case docker compose changes syntax
+
+services:
+  app: # name of our service
+    build:
+      context: . # build dockerfile inside current dir
+    ports:
+      - "8000:8000" # maps point 8000 on our machine to port 8000 inside our docker container
+    volumes:
+      # map directories from our system into the docker container, so that updates to our code
+      # are reflected in container in real time without rebuild
+      - ./app:/app
+    # command to run the service (default, can be overriden in dockerfile)
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+      
