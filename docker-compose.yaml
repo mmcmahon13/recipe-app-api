@@ -15,4 +15,24 @@ services:
     # command to run the service (default, can be overriden in dockerfile)
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment: # for dev setup only, obv don't hardcode for a real setup
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - db
+
+  db:
+    # local dev db setup, not for prod/server deployment
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment: # set env vars for initial database service configuration
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  dev-db-data:
       
