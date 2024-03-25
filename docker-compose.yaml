@@ -14,7 +14,7 @@ services:
       - ./app:/app
     # command to run the service (default, can be overriden in dockerfile)
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     environment: # for dev setup only, obv don't hardcode for a real setup
       - DB_HOST=db
       - DB_NAME=devdb
